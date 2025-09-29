@@ -106,6 +106,14 @@
     //anchor
     fishsprite6.anchor.set(0.75, 0.9);
 
+//function
+
+    //flap function
+        function flap(scale, tick){
+            const func = scale + (Math.sin(tick/30)*.005);
+            return func;
+        }
+
 //Animation ticker
     app.ticker.add((time) => {
 
@@ -135,11 +143,6 @@
 
         fish4.x = x;
 
-        //flap function
-        function flap(scale, tick){
-            const func = scale + (Math.sin(tick/30)*.005);
-            return func;
-        }
 
         //fish flapping
         fishsprite1.scale.set(flap(0.55, tick),.55);
