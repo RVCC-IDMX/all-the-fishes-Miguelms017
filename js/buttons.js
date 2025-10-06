@@ -103,7 +103,7 @@ class Button extends Container{
 let button =  new Button("Test", 200 ,60);
     button.x = 100
     button.y = 200
-    button.setLabel("Q'hubo")
+    button.setLabel("Hola")
     button.setColor("aquamarine")
     button.setSize(200,100)
 console.log(button.label, button.w, button.h)
