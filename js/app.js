@@ -5,8 +5,96 @@
         Application,
         Assets,
         Sprite,
-        Container
+        Container,
+        Graphics,
+        Text
     } from "./pixi.js"
+
+// * Classes
+    // TODO: Class button
+    // ? let any = new Button("tag",height,weight)
+
+    class Button extends Container{
+
+        // constructor
+        constructor(l, w, h){
+            super();
+
+            /* Building
+            ? l = length
+            ? w = width
+            ? h = height
+            ? c = color */
+
+            this.l = l;
+            this.w = w;
+            this.h = h;
+            this.c = "#ffffff";
+
+            // event listener
+            this.eventMode = "static";
+
+            // drawing
+            this.draw();
+
+            // hover
+            this.on("mouseover", () => {
+                this.alpha = 0.75;
+                this.cursor = "pointer";
+            });
+            this.on("mouseout", () => {
+                this.alpha = 1;
+                this.cursor = "auto";
+            });
+        }
+
+        // setup
+        draw(){
+            //empty button
+            while(this.children.length > 0){
+                this.removeChildAt(0);
+            }
+
+            //Building objects 
+
+                //body
+                this.body = new Graphics()
+                    .rect(0, 0, this.w, this.h)
+                    .fill(this.c);
+                this.addChild(this.body);
+
+                //label
+                this.label = new Text({
+                    text: this.l,
+                    anchor: 0.5,
+                });
+                this.label.x = this.w/2;
+                this.label.y = this.h/2;
+                this.addChild(this.label);
+        }
+
+        //set label
+        setLabel(name){
+            this.l = name;
+            this.label.text = name;
+            this.draw();
+        }
+
+        //set color
+        setColor(color){
+            this.c = color;
+            this.draw();
+        }
+
+        //set size
+        setSize(w,h){
+            this.w = w;
+            this.h = h;
+            this.draw;
+        }
+    }
+
+// * content
 
 //create app
     const app = new Application();
@@ -14,8 +102,8 @@
 //Starting up
     await app.init({
         background: "#46ddff",
-        width: 640,
-        height: 480
+        width: 800,
+        height: 640
     });
     document.body.appendChild(app.canvas);
 
@@ -157,21 +245,24 @@
 //animation container
     const fish1 = new Container();
         fish1.x = 165;
-        fish1.y = 165;
+        fish1.y = 325;
 
     const fish2 = new Container;
         fish2.x = 285;
-        fish2.y = 285;
+        fish2.y = 445;
 
     const fish3 = new Container;
         fish3.x = 15;
-        fish3.y = 285;
+        fish3.y = 445;
 
     const fish4 = new Container();
         fish4.x = 320;
-        fish4.y = 320;
+        fish4.y = 480;
 
-    
+//aquarium container
+    const aquarium = new Container();
+        aquarium.y = -80
+
 //fish inside container
     fish1.addChild(fishsprite1);
     fish2.addChild(fishsprite2);
@@ -180,9 +271,299 @@
     fish3.addChild(fishsprite5);
     fish4.addChild(fishsprite6);
 
+//containers inside aquarium
+    aquarium.addChild(bg);
+    aquarium.addChild(fish1);
+    aquarium.addChild(fish2);
+    aquarium.addChild(fish3);
+    aquarium.addChild(fish4);
+
+// buttons
+
+    // Button place
+    let placeholder = new Button("",800,150);
+        placeholder.y = 490;
+        placeholder.setColor("aquamarine");
+        placeholder.on("mouseover", () => {
+            placeholder.alpha = 1;
+            placeholder.cursor = "";
+        });
+        placeholder.on("mouseout", () => {
+            placeholder.alpha = 1;
+        });
+
+    //fish selector
+    let selector = 0;
+
+    let param1 = new Button("1", 30, 30);
+        param1.x = 20;
+        param1.y = 20;
+        param1.on('click',() => {
+            selector = 1;
+            console.log(selector);
+            colorChange.setColor("white");
+            if (selector == 1){
+                param1.setColor("peru");
+                param2.setColor("white");
+                param3.setColor("white");
+                param4.setColor("white");
+                param5.setColor("white");
+                param6.setColor("white");
+                param7.setColor("white");
+            }
+        })
+
+    let param2 = new Button("2", 30, 30);
+        param2.x = 60;
+        param2.y = 20;
+        param2.on('click',() => {
+            selector = 2;
+            console.log(selector);
+            colorChange.setColor("white");
+            if (selector == 2){
+                param1.setColor("white");
+                param2.setColor("peru");
+                param3.setColor("white");
+                param4.setColor("white");
+                param5.setColor("white");
+                param6.setColor("white");
+                param7.setColor("white");
+            }
+        })
+    
+    let param3 = new Button("3", 30, 30);
+        param3.x = 100;
+        param3.y = 20;
+        param3.on('click',() => {
+            selector = 3;
+            console.log(selector);
+            colorChange.setColor("white");
+            if (selector == 3){
+                param1.setColor("white");
+                param2.setColor("white");
+                param3.setColor("peru");
+                param4.setColor("white");
+                param5.setColor("white");
+                param6.setColor("white");
+                param7.setColor("white");
+            }
+        })
+    
+    let param4 = new Button("4", 30, 30);
+        param4.x = 140;
+        param4.y = 20;
+        param4.on('click',() => {
+            selector = 4;
+            console.log(selector);
+            colorChange.setColor("white");
+            if (selector == 4){
+                param1.setColor("white");
+                param2.setColor("white");
+                param3.setColor("white");
+                param4.setColor("peru");
+                param5.setColor("white");
+                param6.setColor("white");
+                param7.setColor("white");
+            }
+        })
+
+    let param5 = new Button("5", 30, 30);
+        param5.x = 180;
+        param5.y = 20;
+        param5.on('click',() => {
+            selector = 5;
+            console.log(selector);
+            colorChange.setColor("white");
+            if (selector == 5){
+                param1.setColor("white");
+                param2.setColor("white");
+                param3.setColor("white");
+                param4.setColor("white");
+                param5.setColor("peru");
+                param6.setColor("white");
+                param7.setColor("white");
+            }
+        })
+    
+    let param6 = new Button("6", 30, 30);
+        param6.x = 220;
+        param6.y = 20;
+        param6.on('click',() => {
+            selector = 6;
+            console.log(selector);
+            colorChange.setColor("white");
+            if (selector == 6){
+                param1.setColor("white");
+                param2.setColor("white");
+                param3.setColor("white");
+                param4.setColor("white");
+                param5.setColor("white");
+                param6.setColor("peru");
+                param7.setColor("white");
+            }
+        })
+    
+    let param7 = new Button("All", 230, 30);
+        param7.x = 20;
+        param7.y = 60;
+        param7.on('click',() => {
+            selector = 7;
+            console.log(selector);
+            colorChange.setColor("white");
+            if (selector == 7){
+                param1.setColor("white");
+                param2.setColor("white");
+                param3.setColor("white");
+                param4.setColor("white");
+                param5.setColor("white");
+                param6.setColor("white");
+                param7.setColor("peru");
+            }
+        })
+
+
+    //color change
+    let colorChange = new Button("random color", 180, 30);
+        colorChange.x = 300;
+        colorChange.y = 20;
+        colorChange.setColor("gray");
+        colorChange.on('click', () => {
+            // changes color depending on selected fish
+            switch (selector) {
+                case 1:
+                    fishsprite1.tint = 0xffffff * Math.random();
+                    break;
+
+                case 2:
+                    fishsprite2.tint = 0xffffff * Math.random();
+                    break;
+
+                case 3:
+                    fishsprite3.tint = 0xffffff * Math.random();
+                    break;
+
+                case 4:
+                    fishsprite4.tint = 0xffffff * Math.random();
+                    break;
+
+                case 5:
+                    fishsprite5.tint = 0xffffff * Math.random();
+                    break;
+
+                case 6:
+                    fishsprite6.tint = 0xffffff * Math.random();
+                    break;
+                
+                case 7:
+                    fishsprite1.tint = 0xffffff * Math.random();
+                    fishsprite2.tint = 0xffffff * Math.random();
+                    fishsprite3.tint = 0xffffff * Math.random();
+                    fishsprite4.tint = 0xffffff * Math.random();
+                    fishsprite5.tint = 0xffffff * Math.random();
+                    fishsprite6.tint = 0xffffff * Math.random();
+                    break;
+            
+                default:
+                    break;
+            }
+        })
+
+    let reset = new Button("reset", 180, 30);
+        reset.x = 300;
+        reset.y = 60;
+        reset.on('click', () => {
+            fishsprite1.tint = "#dffaff";
+            fishsprite2.tint = "#dffaff";
+            fishsprite3.tint = "#dffaff";
+            fishsprite4.tint = "#dffaff";
+            fishsprite5.tint = "#dffaff";
+            fishsprite6.tint = "#dffaff";
+            param1.setColor("white");
+            param2.setColor("white");
+            param3.setColor("white");
+            param4.setColor("white");
+            param5.setColor("white");
+            param6.setColor("white");
+            param7.setColor("white");
+            colorChange.setColor("gray");
+            selector = 0;
+        })
+
+    //Drag button
+
+        //Movable button
+
+            //set up
+            let movement = new Button("1", 40, 40);
+                movement.anchor = 0.5;
+                movement.x = 40;
+                movement.y = 40;
+
+            //flag
+            let dragging = false;
+
+            //initialize
+            movement.on('pointerdown', () => {
+                dragging = true;
+            })
+
+            //actions
+            movement.on('globalpointermove', (event) => {
+                if (dragging){
+                    movement.x = event.global.x - (690);
+                    movement.y = event.global.y - (520);
+                    fishsprite1.x = (event.global.x - 300);
+                    fish1.y = (event.global.y - 175);
+
+                    if (
+                        event.global.x < 670 ||
+                        event.global.x > 790 ||
+                        event.global.y < 500 ||
+                        event.global.y > 620
+                    ){
+                        dragging = false
+                        movement.x = 40
+                        movement.y = 40
+                    }
+                }
+            })
+
+            //ending
+            movement.on('pointerup', () => {
+                dragging = false;
+                movement.x = 40;
+                movement.y = 40; 
+            })
+
+            movement.on('pointerupoutside', () => {
+                dragging = false;
+                movement.x = 40;
+                movement.y = 40; 
+            })
+
+        //placeholder
+        let joystick = new Button("", 120, 120);
+            joystick.x = 670;
+            joystick.y = 10;
+            joystick.setColor("#000000");
+
+        joystick.addChild(movement);
+
+       
+
+// button on father placeholder
+    placeholder.addChild(param1);
+    placeholder.addChild(param2);
+    placeholder.addChild(param3);
+    placeholder.addChild(param4);
+    placeholder.addChild(param5);
+    placeholder.addChild(param6);
+    placeholder.addChild(param7);
+    placeholder.addChild(reset)
+    placeholder.addChild(colorChange);
+    placeholder.addChild(joystick)
+
 //container on stage
-    app.stage.addChild(bg);
-    app.stage.addChild(fish1);
-    app.stage.addChild(fish2);
-    app.stage.addChild(fish3);
-    app.stage.addChild(fish4);
+    app.stage.addChild(aquarium);
+    app.stage.addChild(placeholder);
+    
