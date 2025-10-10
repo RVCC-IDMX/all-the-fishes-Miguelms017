@@ -90,7 +90,7 @@ class Button extends Container{
         this.c = color;
         this.draw();
     }
-    // the sixe
+    // the size
     setSize(w,h){
         this.w = w;
         this.h = h;

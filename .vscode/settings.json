@@ -1,7 +1,9 @@
 {
     "cSpell.words": [
         "fishsprite",
-        "pixi"
+        "globalpointermove",
+        "pixi",
+        "pointerupoutside"
     ],
     "cSpell.ignoreWords": [
         "syncronized"
