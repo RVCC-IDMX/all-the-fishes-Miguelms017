@@ -26,12 +26,16 @@ animate.to = function(obj, end) {
         let start = {
             x : obj.x,
             y : obj.y,
-            tint : obj.tint
+            tint : obj.tint,
+            angle : obj.angle,
+            alpha : obj.alpha
         }
 
         //set default
         if (end.easing == undefined) end.easing = animate.linear;
         if (end.tint == undefined) end.tint = obj.tint;
+        if (end.angle == undefined) end.angle =  obj.angle;
+        if (end.alpha == undefined) end.alpha = obj.alpha;
 
         //start time
         let startTime = Date.now();
@@ -49,6 +53,8 @@ animate.to = function(obj, end) {
                 obj.x = end.x;
                 obj.y = end.y;
                 obj.tint = end.tint;
+                obj.angle = end.angle;
+                obj.alpha = end.alpha;
                 resolve();
                 return;
             }
@@ -62,6 +68,8 @@ animate.to = function(obj, end) {
             obj.x = lerp(start.x,end.x,ease);
             obj.y = lerp(start.y,end.y,ease);
             obj.tint = lerp(start.tint,end.tint,ease);
+            obj.angle = lerp(start.angle,end.angle,ease);
+            obj.alpha = lerp(start.alpha,end.alpha,ease);
 
             //? request loop
             requestAnimationFrame(loop);

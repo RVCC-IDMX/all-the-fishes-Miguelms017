@@ -10,6 +10,8 @@
         Text
     } from "./pixi.js"
 
+    import { animate, sleep } from "./animation.js"
+
 // * Classes
     // TODO: Class button
     // ? let any = new Button("tag",height,weight)
@@ -95,6 +97,73 @@
     }
 
 // * content
+    
+    // flag in default
+    let fish4anim = true
+
+    // function for swim
+    async function swim(x, y){
+        //setting up values inside function
+        let defValues = {
+            x: x,
+            y: y,
+        }
+
+        //default values if not found
+        if(!x) defValues.x = 300;
+        if(!y) defValues.y = 100;
+
+        await animate.to(fish4, {
+            duration: 3000,
+            x: 100,
+            y: 480,
+            easing: animate.easeOut
+        });
+
+        await sleep(500);
+
+        // move to values set up (default or custom)
+        await animate.to(fish4, {
+            duration: 1500,
+            x: defValues.x,
+            y: defValues.y,
+            angle: -90,
+            easing: animate.easeInOut
+        });
+
+        await sleep(1000);
+
+        await animate.to(fish4, {
+            duration: 2000,
+            x: defValues.x,
+            y: 400,
+            angle: 90,
+            easing: animate.linear
+        });
+
+        await animate.to(fish4, {
+            duration: 1000,
+            x: 500,
+            y: 480,
+            angle: 0,
+            easing: animate.linear
+        });
+
+        await sleep(750);
+
+        await animate.to(fish4, {
+            duration: 100,
+            x: 320,
+            y: 480,
+            angle: 0,
+            easing: animate.linear
+        });
+
+        await sleep(2000);
+
+        // restoring default flag
+        fish4anim = true;
+    }
 
 //create app
     const app = new Application();
@@ -229,7 +298,10 @@
         fish3.x = lessX;
         fish3.y = lessY;
 
-        fish4.x = x;
+        // if flag is true (default)
+        if(fish4anim){
+            fish4.x = x;
+        }
 
 
         //fish flapping
@@ -271,12 +343,28 @@
     fish3.addChild(fishsprite5);
     fish4.addChild(fishsprite6);
 
+//aquarium glass
+
+    let glass = new Button("",800,600);
+        glass.on('mouseover', () => {
+            glass.alpha = 0.15;
+        });
+        glass.on('mouseout', () => {
+            glass.alpha = 0.15;
+        })
+        glass.on('click', (event) => {
+            // set up flag in false, then moving to the location clicked in the glass
+            fish4anim = false;
+            swim(event.global.x,event.global.y);
+        })
+
 //containers inside aquarium
     aquarium.addChild(bg);
     aquarium.addChild(fish1);
     aquarium.addChild(fish2);
     aquarium.addChild(fish3);
     aquarium.addChild(fish4);
+    aquarium.addChild(glass);
 
 // buttons
 
@@ -489,6 +577,15 @@
             selector = 0;
         })
 
+    let movF = new Button("move", 180, 30);
+        movF.x = 300;
+        movF.y = 100;
+        movF.on('click', () => {
+            //setting up flag as false, then run with default values
+            fish4anim = false;
+            swim()
+        })
+
     //Drag button
 
         //Movable button
@@ -562,6 +659,7 @@
     placeholder.addChild(reset)
     placeholder.addChild(colorChange);
     placeholder.addChild(joystick)
+    placeholder.addChild(movF);
 
 //container on stage
     app.stage.addChild(aquarium);

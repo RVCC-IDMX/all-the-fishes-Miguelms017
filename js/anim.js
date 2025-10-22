@@ -29,6 +29,7 @@ document.body.appendChild(app.canvas);
 //sprite
     const fishsprite1 = new Sprite(texture);
         fishsprite1.scale.set(0.6);
+        fishsprite1.anchor.set(0.5);
 
 
 // fish on stage
@@ -42,6 +43,8 @@ document.body.appendChild(app.canvas);
             x: 300,
             y: 300,
             tint: 0xFF0000,
+            angle: 30,
+            alpha: 0.75,
             easing: animate.easeInOut
         });
 
@@ -52,9 +55,11 @@ document.body.appendChild(app.canvas);
             x: 300,
             y: 100,
             tint: 0xFFFFFF,
+            angle: -90,
+            alpha: 0.25,
             easing: animate.easeInOut
         })
-        swim()
+        swim();
     }
 
 swim();
